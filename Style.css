@@ -1,0 +1,336 @@
+/* ==========================================================================
+   ROOT VARIABLES & THEME
+   Defines the core design system: colors, spacing, shadows, typography
+========================================================================== 
+*/
+:root {
+  /* Color Palette - Modern Indigo & Slate */
+  --color-primary: #4f46e5;
+  --color-primary-hover: #4338ca;
+  --color-primary-light: #e0e7ff;
+  --color-secondary: #64748b;
+  --color-success: #10b981;
+  --color-danger: #ef4444;
+  
+  /* Backgrounds & Surfaces */
+  --bg-body: #f8fafc;
+  --bg-surface: #ffffff;
+  --bg-input: #f1f5f9;
+  --bg-hover: #f1f5f9;
+  
+  /* Typography Colors */
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  
+  /* Borders & Shadows */
+  --border-color: #e2e8f0;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1.25rem;
+  
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.02);
+  --shadow-focus: 0 0 0 4px rgba(79, 70, 229, 0.15);
+  
+  /* Transitions */
+  --transition-fast: 0.15s ease-in-out;
+  --transition-normal: 0.3s ease;
+}
+
+/* ==========================================================================
+   GLOBAL RESET & TYPOGRAPHY
+========================================================================== 
+*/
+body {
+  font-family: 'Cairo', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-body);
+  color: var(--text-main);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+::selection {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+/* ==========================================================================
+   HEADER & BRANDING
+========================================================================== 
+*/
+.site-header {
+  background-color: var(--bg-surface);
+  border-bottom: 1px solid var(--border-color);
+  /* Override Bootstrap shadow-sm with a cleaner custom shadow */
+  box-shadow: var(--shadow-sm) !important; 
+  position: sticky;
+  top: 0;
+  z-index: 1020;
+}
+
+.app-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
+  color: var(--color-primary);
+  border-radius: var(--radius-md);
+  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.6), 0 2px 5px rgba(0,0,0,0.05);
+  transition: transform var(--transition-fast);
+}
+
+.site-header:hover .app-icon {
+  transform: scale(1.05) rotate(-3deg);
+}
+
+/* ==========================================================================
+   MAIN CARD & LAYOUT
+========================================================================== 
+*/
+@keyframes slideUpFade {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.app-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md) !important;
+  animation: slideUpFade 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  overflow: hidden;
+}
+
+.app-card > section h2 {
+  font-size: 1.1rem;
+  color: var(--text-main);
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--bg-body);
+}
+
+/* ==========================================================================
+   FORM ELEMENTS
+========================================================================== 
+*/
+.form-label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.4rem;
+  color: var(--text-main);
+}
+
+.form-control {
+  background-color: var(--bg-input);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  color: var(--text-main);
+  transition: all var(--transition-fast);
+}
+
+.form-control::placeholder {
+  color: #94a3b8;
+  font-weight: 400;
+}
+
+.form-control:hover {
+  background-color: var(--bg-surface);
+  border-color: #cbd5e1;
+}
+
+.form-control:focus {
+  background-color: var(--bg-surface);
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-focus);
+}
+
+.form-text {
+  color: var(--text-muted) !important;
+  margin-top: 0.4rem;
+}
+
+/* ==========================================================================
+   BUTTONS
+========================================================================== 
+*/
+.btn {
+  font-weight: 700;
+  padding: 0.65rem 1.25rem;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #ffffff;
+  box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2);
+}
+
+.btn-primary:hover, .btn-primary:focus {
+  background-color: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 8px -1px rgba(79, 70, 229, 0.3);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-outline-secondary {
+  color: var(--text-muted);
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-surface);
+}
+
+.btn-outline-secondary:hover, .btn-outline-secondary:focus {
+  background-color: var(--bg-hover);
+  color: var(--text-main);
+  border-color: #cbd5e1;
+}
+
+/* ==========================================================================
+   TABLE STYLES & RESPONSIVENESS
+========================================================================== 
+*/
+.table-responsive {
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background-color: var(--bg-surface);
+  /* Modern custom scrollbar for horizontal scrolling */
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+
+.table-responsive::-webkit-scrollbar {
+  height: 8px;
+}
+.table-responsive::-webkit-scrollbar-track {
+  background: transparent;
+}
+.table-responsive::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1;
+  border-radius: 20px;
+  border: 2px solid var(--bg-surface);
+}
+
+.result-table {
+  margin-bottom: 0;
+  min-width: 600px; /* Ensures horizontal scroll triggers safely on mobile */
+}
+
+.result-table thead th {
+  background-color: var(--bg-body);
+  color: var(--text-muted);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  white-space: nowrap;
+}
+
+.result-table tbody td {
+  padding: 1rem;
+  font-weight: 600;
+  border-bottom: 1px solid var(--border-color);
+  vertical-align: middle;
+}
+
+.result-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.result-table tbody tr {
+  transition: background-color var(--transition-fast);
+}
+
+.result-table tbody tr:hover {
+  background-color: var(--bg-hover) !important;
+}
+
+/* Empty state styling inside table */
+.result-table tbody tr .py-4 {
+  color: #94a3b8;
+  font-weight: 400;
+  font-size: 0.95rem;
+}
+
+/* ==========================================================================
+   TOTALS SECTION (SUMMARY CARDS)
+========================================================================== 
+*/
+.totals-list {
+  margin-top: 1.5rem;
+}
+
+.totals-list > div {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1rem;
+  text-align: center;
+  transition: all var(--transition-normal);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.totals-list > div:hover {
+  border-color: var(--color-primary-light);
+  background-color: var(--bg-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.totals-list dt {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.totals-list dd {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  line-height: 1.2;
+}
+
+/* Mobile specific tweaks for the summary cards */
+@media (max-width: 768px) {
+  .totals-list > div {
+    padding: 1rem 0.5rem;
+  }
+  .totals-list dd {
+    font-size: 1.25rem;
+  }
+}
+
+/* ==========================================================================
+   FOOTER
+========================================================================== 
+*/
+footer {
+  color: #94a3b8;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}

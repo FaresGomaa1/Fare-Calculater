@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>حاسبة الأجرة</title>
+
+  <!-- Cairo Arabic font -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap RTL -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header py-3 shadow-sm">
+    <div class="container d-flex gap-3 align-items-center justify-content-between">
+      <div class="d-flex align-items-center gap-3">
+        <span class="app-icon">
+          <i class="fa-solid fa-calculator fa-lg"></i>
+        </span>
+        <div>
+          <h1 class="h5 mb-0">حاسبة الأجرة</h1>
+          <p class="text-muted small mb-0">قسّم المبلغ واحسب الباقي بسرعة</p>
+        </div>
+      </div>
+      <div class="d-none d-sm-flex align-items-center gap-2">
+        <button class="btn btn-sm btn-outline-primary" type="button" aria-label="مساعدة">
+          <i class="fa-regular fa-circle-question me-1"></i> تعليمات
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="py-4">
+    <div class="container">
+      <article class="card p-3 p-md-4 app-card shadow-sm">
+        <section aria-labelledby="inputHeading" class="mb-3">
+          <h2 id="inputHeading" class="h6 mb-3 d-flex align-items-center gap-2">
+            <i class="fa-solid fa-keyboard me-1 text-secondary"></i> المدخلات
+          </h2>
+
+          <form id="entryForm" class="row g-3" role="form" autocomplete="off">
+            <div class="col-12 col-md-4">
+              <label for="fare" class="form-label">الأجرة للفرد</label>
+              <input type="number" id="fare" class="form-control" placeholder="مثال: 10.5" min="0" step="any" aria-label="الأجرة للفرد" />
+              <div class="form-text small">قيمة الأجرة لكل شخص</div>
+            </div>
+
+            <div class="col-12 col-md-4">
+              <label for="amount" class="form-label">المبلغ الإجمالي</label>
+              <input type="number" id="amount" class="form-control" placeholder="مثال: 100" min="0" step="any" aria-label="المبلغ الإجمالي" />
+              <div class="form-text small">المبلغ الكلي الذي تم دفعه أو المدخل</div>
+            </div>
+
+            <div class="col-12 col-md-4">
+              <label for="persons" class="form-label">عدد الأشخاص</label>
+              <input type="number" id="persons" class="form-control" placeholder="مثال: 3" min="1" aria-label="عدد الأشخاص" />
+              <div class="form-text small">كم عدد الأشخاص المشتركين؟</div>
+            </div>
+
+            <div class="col-12 d-grid gap-2 d-md-flex justify-content-start">
+              <button type="submit" class="btn btn-primary flex-md-grow-0 flex-fill" id="addBtn">
+                <i class="fa-solid fa-plus me-2"></i> إضافة
+              </button>
+
+              <button type="button" class="btn btn-outline-secondary flex-md-grow-0 flex-fill" id="clearBtn">
+                <i class="fa-solid fa-trash-can me-2"></i> مسح الكل
+              </button>
+            </div>
+          </form>
+        </section>
+
+        <section aria-labelledby="resultsHeading" class="mt-3">
+          <h2 id="resultsHeading" class="h6 mb-2 d-flex align-items-center gap-2">
+            <i class="fa-solid fa-table-list me-1 text-secondary"></i> النتائج
+          </h2>
+
+          <div class="table-responsive">
+            <table class="table table-hover result-table align-middle mb-0">
+              <caption class="visually-hidden">قائمة العمليات المدخلة</caption>
+              <thead class="table-light small">
+                <tr>
+                  <th scope="col"><i class="fa-solid fa-money-bill-wave me-1"></i> المبلغ</th>
+                  <th scope="col"><i class="fa-solid fa-user-group me-1"></i> الأشخاص</th>
+                  <th scope="col"><i class="fa-solid fa-coins me-1"></i> الباقي</th>
+                  <th scope="col"><i class="fa-solid fa-info-circle me-1"></i> الحالة</th>
+                  <th scope="col"><i class="fa-solid fa-check me-1"></i> تم؟</th>
+                </tr>
+              </thead>
+              <tbody id="resultBody">
+                <tr class="text-muted small">
+                  <td colspan="5" class="text-center py-4">
+                    <i class="fa-regular fa-folder-open me-2"></i> لم تُسجل عمليات بعد
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <section aria-labelledby="totalsHeading" class="mt-3">
+            <h2 id="totalsHeading" class="visually-hidden">ملخص العمليات</h2>
+
+            <dl class="row g-2 totals-list">
+              <div class="col-6 col-md-4">
+                <dt class="text-muted small mb-0">عدد الإدخالات</dt>
+                <dd class="h6 mb-0"><span id="entriesCount">0</span></dd>
+              </div>
+
+              <div class="col-6 col-md-4">
+                <dt class="text-muted small mb-0">عدد الأشخاص الذين تم التحصيل منهم</dt>
+                <dd class="h6 mb-0"><span id="peopleCount">0</span></dd>
+              </div>
+
+              <div class="col-6 col-md-4">
+                <dt class="text-muted small mb-0">إجمالي المبالغ المتبقية</dt>
+                <dd class="h6 mb-0"><span id="pendingTotal">0</span></dd>
+              </div>
+
+              <div class="col-6 col-md-4">
+                <dt class="text-muted small mb-0">إجمالي المال المطلوب</dt>
+                <dd class="h6 mb-0"><span id="totalRequired">0</span></dd>
+              </div>
+
+              <div class="col-6 col-md-4">
+                <dt class="text-muted small mb-0">إجمالي المال المحصّل</dt>
+                <dd class="h6 mb-0"><span id="totalCollected">0</span></dd>
+              </div>
+            </dl>
+          </section>
+        </section>
+      </article>
+    </div>
+  </main>
+
+  <footer class="py-3 text-center text-muted small">
+    <div class="container">© جميع الحقوق محفوظة</div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
